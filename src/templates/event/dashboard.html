@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_links %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">    
+{% endblock css_links %}
+
+{% block top %}
+<div class="d-flex bd-highlight mb-3 justify-content-between">
+    <div>
+        <h4> {{object.name}} - Dashboard </h4>
+    </div>
+    <div>
+        <h4 style='font-size: 1.2em'> Status: {% if object.is_active %} <span class="text-success">Active</span> {% else %} <span class="text-danger">Inactive</span> {% endif %}</h4>
+    </div>
+</div>
+{% endblock top %}
+
+{% block content %}
+<div class="d-flex flex-row justify-content-between">
+    <!-- <div> -->
+        <!-- <p>Staff Accredited By Role</p> -->
+        <div class="card border-primary" style="max-width: 30rem;">
+            <div class="card-header text-white bg-primary">
+                <h4 class="card-title">Staff Accredited By Role</h4>
+            </div>
+            <div class="card-body">
+                <!-- <h4>Staff Accredited By Role</h4> -->
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Role</th>
+                            <th scope="col">Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for role in accredit_by_role_sum %}
+                        <tr>
+                            <th scope="row">{{role.name}}</th>
+                            <td style="text-align: center;">{{role.num_workers}}</td>
+                        </tr>
+                        {% empty %}
+                        <p>No staff have been accredited. <br/>
+                            Click on staff search to begin<br/>
+                            accrediting staff.</p>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <!-- </div> -->
+    
+    <div class="card border-primary" style="max-width: 30rem;">
+        <div class="card-header text-white bg-primary">
+            <h4 class="card-title">Summary</h4>
+        </div>
+        <div class="card-body">
+            <!-- <h4>Summary of accredited staff</h4> -->
+            <table class="table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Booked</th>
+                        <th scope="col">
+                            Accredit
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for com in summary %}
+                    <tr>
+                        <th scope="row">{{com.name}}</th>
+                        <td style="text-align: center;">{{com.worker_count}}</td>
+                        <td style="text-align: center;">{{com.workers_accreditted}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<h4 class="my-3"> Staffing </h4>
+<p>Create staff records for this event.</p>
+<div class="option-holder">
+    <a href="{% url 'event:worker_create' object.slug %}" class="option mt-3 w-25">
+        <span class="option-label">Staff Create</span>
+        <div class="triangle border-white"></div>
+    </a>
+    {% comment %} <a href="{% url 'event:worker_bulk_create' object.slug %}" class="option mt-3 w-25">
+        <span class="option-label">Staff Bulk Create</span>
+        <div class="triangle border-white"></div>
+    </a> {% endcomment %}
+    <a href="{% url 'event:worker_search' object.slug %}" class="option mt-3 w-25">
+        <span class="option-label">Staff Search</span>
+        <div class="triangle border-white"></div>
+    </a>
+</div>
+
+<h4 class="my-5"> Settings </h4>
+<div class="d-flex flex-row justify-content-between">
+    <div class="card border-primary" style="width: 18rem;">
+        <div class="card-header">
+            <h5 class="card-title">Assign Users To Project</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Select which system users are allowed to access this event.</p>
+            <a href="{% url 'event:assign_logistics_user' object.slug %}" class="btn btn-outline-primary">Select</a>
+        </div>
+    </div>
+    <div class="card border-primary" style="width: 18rem;">
+    <div class="card-header">
+        <h5 class="card-title">Assign Company To Project</h5>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Select suppliers expected for this event.</p>
+        <a href="{% url 'event:assign_supplier' object.slug %}" class="btn btn-outline-primary">Select</a>
+    </div>
+    </div>
+
+    <div class="card border-primary" style="width: 18rem;">
+        <div class="card-header">
+            <h5 class="card-title">Closed Event</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Mark event as inactive. This will stop anymore staff from being accredited.</p>
+            <a href="{% url 'event:close_event' slug=object.slug %}" class="btn btn-outline-danger">Close</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

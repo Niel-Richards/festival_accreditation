@@ -1,0 +1,47 @@
+{% extends 'core.html' %}
+{% load static %}
+{% block main %}
+    <header>
+        <div class="d-flex flex-wrap justify-content-center pt-3 container">
+            <a href="{% url 'event:event_list' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <span class="fs-4">Festival Accreditation</span>
+            </a>
+
+            {% if request.user.is_authenticated %}
+                <ul class="nav nav-pills">
+                    {% if request.user.is_manager %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Manager</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'supplier:company_list' %}">Company List</a></li>
+                            <li><a class="dropdown-item" href="{% url 'account:user_list' %}">Users</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item"><a href="{% url 'event:event_list' %}" class="nav-link">Events</a></li>
+                    {% comment %} <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li> {% endcomment %}
+                    <li class="nav-item"><a href="{% url 'account:logout' %}" class="nav-link">Logout</a></li>
+                </ul>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="container mt-3">
+        <div class="d-flex flex-column bd-highlight mb-3 justify-content-between border-bottom border-primary">
+            {% block top %}
+        
+            {% endblock top %}
+            {% for message in messages %}
+                <div{% if message.tags == "success" %} class="alert alert-success" 
+                {% elif message.tags == "info" %} class="alert alert-info" 
+                {% elif message.tags == "warning" %} class="alert alert-warning" {% endif %}>
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{message}}
+                </div>
+            {% endfor%}
+        </div>
+        
+        {% block content %}
+        
+        {% endblock content %}
+    </div>
+{%  endblock main %}

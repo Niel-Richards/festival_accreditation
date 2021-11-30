@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block top %}
+<div>
+    <h4> {{object.first_name}} {{object.last_name}}</h4>
+</div>     
+{% endblock top %}
+
+{% block content %}
+<div class="d-flex">
+    <div class="d-flex flex-column justify-content-between">
+        <div class="detail-area">
+            <div class="bg-darker rounded d-flex border mb-2">
+                <div class="bg-transparent left p-1">Date Of Birth:</div>
+                <div class="bg-white text-dark right p-1 rounded-end">{{object.date_of_birth}}</div>
+            </div>
+            <div class="bg-darker rounded d-flex border mb-2">
+                <div class="bg-transparent left p-1">SIA No:</div>
+                <div class="bg-white text-dark right p-1 rounded-end">{{object.sia_no}}</div>
+            </div>
+            <div class="bg-darker rounded d-flex border mb-2">
+                <div class="bg-transparent left p-1">SIA Expiry:</div>
+                <div class="bg-white text-dark right p-1 rounded-end">{{object.sia_exp}}</div>
+            </div>
+            <div class="bg-darker rounded d-flex border mb-2">
+                <div class="bg-transparent left p-1">Employer:</div>
+                <div class="bg-white text-dark right p-1 rounded-end">{{object.employer}}</div>
+            </div>
+            <div class="bg-darker rounded d-flex border mb-2">
+                <div class="bg-transparent left p-1">Working At:</div>
+                <div class="bg-white text-dark right p-1 rounded-end">{{object.working_at}}</div>
+            </div>
+        </div>
+        {% if object.is_approved %}
+        <div class="detail-area">
+            <div class="bg-success rounded p-2 text-white"> Approved {{ object.when_approved }} by {{object.approved_by | title}}</div>
+        </div>
+        {% endif %}
+    </div>    
+    <div class="avatar">
+        {% if object.get_accreditation.get_image_url%}
+            <image class="img-fluid avatar" src="{{object.get_accreditation.get_image_url}}">
+        {% else %}
+            <image class="img-fluid avatar" src="{% static 'img/avatar.png' %}">
+        {% endif %}
+
+    </div>
+</div>
+<div class="mt-3">
+        <a href="{% url 'event:worker_search' slug=object.working_at.slug %}" class="btn btn-outline-primary">Back</a>
+    {% if object.can_be_approved %}
+        <a href="{% url 'event:worker_update' slug=object.working_at.slug id=object.id%}" class="btn btn-outline-primary">Edit</a>
+        <a href="{% url 'event:worker_accredit' slug=object.working_at.slug id=object.id%}" class="btn btn-outline-danger">Accredit</a>
+    {% endif %}
+</div>
+
+{% endblock content %}

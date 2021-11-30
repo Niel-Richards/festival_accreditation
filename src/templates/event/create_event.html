@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_links %}
+    <link rel="stylesheet" href="{% static 'css/worker_details.css' %}">
+{% endblock css_links %}
+
+{% block top %}
+    <div>
+        <h4> Create Event </h4>
+    </div>
+{% endblock top %}
+
+{% block content %}
+
+<div class="d-flex">
+    <div class="d-flex flex-column justify-content-between">
+        <div class="detail-area">
+            <form action="." method="POST">
+                {% csrf_token %}
+                {{ form.as_p}}
+                <a href="{% url 'event:event_list' %}" class="btn btn-outline-primary">Cancel</a>
+                <input class="btn btn-danger" type="submit" name="create_event" value="Submit"/>
+            </form>
+        </div>
+    </div>
+    <div class="detail-area">
+
+    </div>
+</div>
+
+
+{% endblock content %}

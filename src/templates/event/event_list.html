@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block top %}
+<div class="d-flex flex-row bd-highlight mb-3 justify-content-between">
+    <div>
+        <h4> Event List </h4>
+    </div>
+    <div>
+      <a href="{% url 'event:create_event' %}" class="btn btn-primary float-end"> New Event </a>
+    </div>
+</div>
+{% endblock top %}
+
+{% block content %}
+<table class="table">
+  <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for obj in object_list %}
+    <tr>
+        <th scope="row">{{obj.id}}</th>
+        <td>{{obj.name}}</td>
+        <td>{{obj.date}}</td>
+        {% if obj.is_active %}
+          <td>Active</td>
+        {% else %}
+          <td>Inactive</td>
+        {% endif %}
+        <td><a href="{{obj.get_absolute_url}}" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Select Event">  View  </a></td>
+    </tr>
+    {% empty %}
+    <tr>
+        <th scope="row" >#</th>
+        <td colspan="3">Sorry, no events active please speak the logistics manager.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}

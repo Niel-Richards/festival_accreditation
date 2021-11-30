@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block top %}
+<div class="d-flex flex-row bd-highlight mb-3 justify-content-between">
+    <div>
+        <h4> Create User </h4>
+    </div>
+    <div class="">
+        {% comment %} <a href="{% url 'supplier:company_create' %}" class="btn btn-outline-success ml-3">Create Company</a> {% endcomment %}
+    </div>
+</div>
+{% endblock top %}
+{% block content %}
+
+
+<div class="d-flex">
+    <div class="detail-area">
+        <form action="." method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <a href="{% url 'account:user_list' %}" class="btn btn-outline-primary">Cancel</a>
+            <input class="btn btn-outline-danger" type='submit' name='submit' value='Submit'>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

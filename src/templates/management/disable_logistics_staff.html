@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block top %}
+    <div class="d-flex flex-row bd-highlight mb-3 justify-content-between">
+        <div>
+            <h4> Disable Logistics Staff </h4>
+        </div>
+    </div>
+{% endblock top %}
+
+{% block content %}
+
+{% block content %}
+<div class="d-flex">
+    <div class="detail-area">
+        <form method="Post" action=".">
+            {% csrf_token %}
+            {{ form|crispy }}
+
+                <a href="{% url 'event:dashboard' object.slug %}" class="btn btn-outline-primary mt-3">Cancel</a>
+                <input class="btn btn-danger mt-3" type="submit" name="submit" value="Submit">
+
+        </form>
+    </div>
+
+</div>
+
+{% endblock content %}

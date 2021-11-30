@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block top %}
+<div class="d-flex flex-row bd-highlight mb-3 justify-content-between">
+    <div>
+        <h4> Manager Options </h4>
+    </div>
+</div>
+{% endblock top %}
+{% block content %}
+
+<h4 class="my-3"> Company </h4>
+<div class="list-group">
+    <a href="#" class="list-group-item list-item-group-action list-group-item">Create Company ></a>
+    <a href="#" class="list-group-item list-item-group-action list-group-item">Update Company ></a>
+    <a href="#" class="list-group-item list-item-group-action list-group-item">Disable Company ></a>
+</div>
+<h4 class="my-3"> Logistics Users </h4>
+<div class="list-group">
+    <a href="#" class="list-group-item list-item-group-action list-group-item">Create User ></a>
+    <a href="#" class="list-group-item list-item-group-action list-group-item">Update User ></a>
+    <a href="#" class="list-group-item list-item-group-action list-group-item">Disable User ></a>
+</div>
+
+
+{% endblock content %}

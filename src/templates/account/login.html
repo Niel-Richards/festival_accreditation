@@ -1,0 +1,33 @@
+{% extends 'core.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css_links %}
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">    
+{% endblock css_links %}
+
+{% block main %}
+   
+    <div class="login shadow p-3 mb-5 rounded">
+
+        <div>
+            <h4 class="login__header">Festival Login</h4>
+        </div>
+
+        <form action="." method='post'>
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-floating mb-3">
+                {{ form.username }}
+                <label style="font-size:1rem" for="{{form.username.auto_id}}">{{ form.username.label }}</label>
+            </div>
+            <div class="form-floating">
+                {{ form.password }}
+                <label style="font-size:1rem" for="{{form.password.auto_id}}">{{ form.password.label }}</label>
+            </div>
+        </div>
+            <input class="form-control btn btn-primary my-3" type='submit' name='submit' value='Login'>
+        </form>
+    </div>
+
+{% endblock main %}

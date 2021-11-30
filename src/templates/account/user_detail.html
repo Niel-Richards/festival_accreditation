@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_links %}
+{% endblock css_links %}
+
+{% block top %}
+<div class="d-flex flex-row bd-highlight mb-3 justify-content-between">
+    <div>
+        <h4> User Detail </h4>
+    </div>
+</div>
+{% endblock top %}
+
+{% block content %}
+
+<div class="d-flex">
+    <div class="d-flex flex-column justify-content-between">
+        <div class="detail-area">
+            <div class="bg-darker rounded d-flex border mb-2">
+                <div class="bg-transparent left p-1">Username:</div>
+                <div class="bg-white text-dark right p-1 rounded-end">{{object.username}}</div>
+            </div>
+            <div class="bg-darker rounded d-flex border mb-2">
+                <div class="bg-transparent left p-1">First Name:</div>
+                <div class="bg-white text-dark right p-1 rounded-end">{{object.first_name}}</div>
+            </div>
+            <div class="bg-darker rounded d-flex border mb-2">
+                <div class="bg-transparent left p-1">Last Name:</div>
+                <div class="bg-white text-dark right p-1 rounded-end">{{object.last_name}}</div>
+            </div>
+            <div class="bg-darker rounded d-flex border mb-2">
+                <div class="bg-transparent left p-1">Is Active:</div>
+                <div class="bg-white text-dark right p-1 rounded-end">{{object.is_active|title}}</div>
+            </div>
+            <div class="bg-darker rounded d-flex border mb-2">
+                <div class="bg-transparent left p-1">Is Manager:</div>
+                <div class="bg-white text-dark right p-1 rounded-end">{{object.is_manager|title}}</div>
+            </div>
+            <div class="bg-darker rounded d-flex border mb-2">
+                <div class="bg-transparent left p-1">Last Login:</div>
+                <div class="bg-white text-dark right p-1 rounded-end">{{object.last_login}}</div>
+            </div>
+            <div>
+                <a href="{% url 'account:user_list' %}" class="btn btn-outline-primary">Back</a>
+                <a href="{% url 'account:disable_user' object.id %}" class="btn btn-outline-danger">Disable</a>
+            </div>
+        </div>
+        
+    </div>
+    <div class="detail-area">
+        <div class="card border-light">
+            <div class="card-header">Assigned to event</div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for event in object.authorised_for_event.all %}
+                        <li class="list-group-item">
+                            <a href="{{event.get_absolute_url}}">{{event.name}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

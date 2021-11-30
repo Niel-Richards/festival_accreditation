@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_links %}
+{% endblock css_links %}
+
+{% block top %}
+<div class="d-flex flex-row bd-highlight mb-3 justify-content-between">
+    <div>
+        <h4> Company List </h4>
+    </div>
+    <div class="">
+        <a href="{% url 'supplier:company_create' %}" class="btn btn-primary ml-3 float-end">Create Company</a>
+    </div>
+</div>
+{% endblock top %}
+
+{% block content %}
+
+<div class="search-results-wrapper mt-3">
+    <table class="table table-hover table-sm">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody id="search-results">
+            {% for item in object_list %}
+            <tr >
+                <th>
+                    # {{ item.id }}
+                </th>
+                <td>
+                    {{ item.name }}
+                </td>
+                <td>
+                    {% if item.is_active %}
+                        <span class="text-success">Active</span>
+                    {% else %}
+                        <span class="text-danger">Inactive</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if item.is_active %}
+                        <a href="{% url 'supplier:company_disable' item.id %}" class="btn btn-outline-danger btn-sm"> Disable </a>
+                    {% else %}
+                        <a href="{% url 'supplier:company_disable' item.id %}" class="btn btn-outline-danger btn-sm"> Enable </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
+
+{% block js_links %}
+{% endblock js_links %}

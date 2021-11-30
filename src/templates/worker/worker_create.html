@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css_links %}
+{% endblock css_links %}
+
+{% block top %}
+<div class="d-flex flex-row bd-highlight mb-3 justify-content-between">
+    <div>
+        <h4> Create New Worker</h4>
+    </div>
+</div>
+{% endblock top %}
+{% block content %}
+<div class="d-flex">
+    <div class="detail-area">
+        <form method="Post" action=".">
+            {% csrf_token %}
+            {{ form|crispy }}
+                <button id='backBtn' class="btn btn-outline-primary mt-3">Cancel</button>
+                <input class="btn btn-danger mt-3" type="submit" name="submit" value="Submit">
+
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block js_links %}
+    <script src="{% static 'js/worker-create.js' %}" type="text/javascript"></script>
+{% endblock js_links %}

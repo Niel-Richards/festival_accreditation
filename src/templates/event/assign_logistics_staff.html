@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block top %}
+<div class="d-flex flex-row bd-highlight mb-3 justify-content-between">
+    <div>
+        <h4> {{object.name}} - Assign Users </h4>
+    </div>
+</div>
+{% endblock top %}
+
+{% block content %}
+<form action="." method="POST">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <a href='{% url "event:dashboard" object.slug %}' class='btn btn-outline-primary'>Cancel</a>
+    <input class='btn btn-danger' type="submit" name="assign_staff" value="Submit"/>
+</form>
+
+
+{% endblock content %}

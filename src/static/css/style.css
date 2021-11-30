@@ -1,0 +1,126 @@
+:root {
+    --light-gray: #F1F7FB;
+    
+    --spanish-violet: #4a2f80;
+    --isabelline: #f4f1ef;
+    --celadon-green: #39827c;
+    --raisin-black: #2d2f36;
+}
+
+
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+}
+
+header {
+    box-shadow: 1px 1px 10px #888888;
+}
+
+.nav {
+    font-size: 1.2rem;
+}
+
+
+.nav-item a {
+    position: relative;
+}
+
+.nav-item a::before {
+    content: "";
+    display: block;
+    height: 3px;
+    background-color: var(--spanish-violet);
+
+    position: absolute;
+    top: 0;
+    width: 0%;
+
+    transition: all ease-in-out 250ms;
+}
+
+.nav-item a:hover::before {
+    width: 80%;
+    color: var(--spanish-violet);
+}
+
+
+.container {
+    width: 70rem;
+    margin: auto;
+}
+
+.login {
+    width: 450px;
+    margin: auto;
+    margin-top: 25vh;
+    padding: 25px;
+}
+
+.login__header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login input[type="submit"] {
+    margin-top: 25px;
+}
+
+/* Body Layout */
+.detail-area {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.25em;
+    width: 500px;
+    margin-right: 1em;
+    box-sizing: border-box;
+}
+
+.detail-row {
+    display: flex;
+    margin-bottom: 15px;
+    border-radius: .5em;
+}
+.detail-field, .detail-label, .left, .right{
+    width: 50%;
+    padding-left: 0.5em;
+}
+
+.avatar {
+    width: 450px;
+    height: 500px;
+    box-sizing: border-box;
+    border-radius: .5em;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.bg-darker {
+    background-color: rgba(0,0,0,0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* Accredit page */
+#canvas {
+    display: none;
+}
+
+.uppercase {
+    text-transform: uppercase !important;
+}
+
+/* Modal */
+.modal-body {
+    padding: 1.35rem !important;
+}
+
+/* Allocation Pages */
+ul {
+    padding-left: 0;
+    list-style: none;
+
+}
+
+/* label {
+    font-size: 1.5rem;
+} */
