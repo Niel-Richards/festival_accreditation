@@ -7,22 +7,24 @@ from supplier.models import Company
 
 
 class EventForm(forms.ModelForm):
+    DATE_PLACEHOLDER = 'DD/MM/YYYY'
 
     def __init__(self, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs['class'] = 'form-control'
         self.fields['date'].widget.attrs['class'] = 'form-control'
-        self.fields['bib_required'].widget.attrs['class'] = 'form-check-input'
+        self.fields['date'].widget.attrs['placeholder'] = self.DATE_PLACEHOLDER
+        #self.fields['bib_required'].widget.attrs['class'] = 'form-check-input'
 
     class Meta:
         model = Event
-        fields = ['name', 'date', 'bib_required']
+        fields = ['name', 'date', ]#'bib_required']
         labels = {
             'name': ('Event Name'),
             'date': ('Date Of Event'),
-            'bib_required': ('Are Bibs Required')
+            # 'bib_required': ('Are Bibs Required')
         }
-
+    
 class CustomMMCF(forms.ModelMultipleChoiceField):
 
     def label_from_instance(self, obj):
@@ -159,7 +161,12 @@ class BibForm(forms.ModelForm):
         }
 
 class AccreditForm(forms.ModelForm):
+    TRUE_FALSE_CHOICES = (
+    (True, 'Yes'),
+    (False, 'No')
+    )
 
+    camping = forms.ChoiceField(choices=TRUE_FALSE_CHOICES, initial="", widget=forms.Select(), required=True)
     tent_tag = forms.CharField(max_length=20, label='Tent Tag', required=False)
     tent_tag_colour = forms.CharField(max_length=20, label='Tent Tag Colour', required=False)
     mugshot = forms.CharField(label="")
@@ -186,7 +193,7 @@ class AccreditForm(forms.ModelForm):
         tent_tag = self.cleaned_data['tent_tag']
         tent_tag_colour = self.cleaned_data['tent_tag_colour']
 
-        if camping:
+        if camping == "True":
             if ((tent_tag == "") or (tent_tag_colour == "")):
                 raise ValidationError('All camping details are required')
 

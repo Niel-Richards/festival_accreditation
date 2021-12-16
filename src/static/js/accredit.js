@@ -24,7 +24,7 @@ function addListeners() {
 }
 
 function toggleCampingRequired() {
-    if (camping.value === 'false'){
+    if (camping.value === 'False'){
         array.forEach((element) => {
             element.removeAttribute('required');
             element.setAttribute('disabled','');
