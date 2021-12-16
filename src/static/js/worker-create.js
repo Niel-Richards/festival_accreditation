@@ -58,10 +58,10 @@ function createErrorParagraph(feedback)  {
 }
 
 sia_no.addEventListener('keyup',(event)=>{
-    const keyCodesArray = [37,38,39,40]; //keyboard arrow keys
+    const keyCodesArray = ["ArrowDown","ArrowUp","ArrowLeft","ArrowRight"]; //keyboard arrow keys
     let selection = window.getSelection().toString();
     if(selection !== '') return;
-    if(keyCodesArray.includes(event.keyCode)) return;
+    if(keyCodesArray.includes(event.key)) return;
     
     let input_value = event.target.value.replace(/[\D\s\._\-]+/g,""); //removes anything that is not a number
     

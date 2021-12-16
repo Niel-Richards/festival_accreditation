@@ -31,10 +31,10 @@ header {
     content: "";
     display: block;
     height: 3px;
-    background-color: var(--spanish-violet);
+    background-color: var(--bs-primary);
 
     position: absolute;
-    top: 0;
+    bottom: 0;
     width: 0%;
 
     transition: all ease-in-out 250ms;
@@ -42,7 +42,7 @@ header {
 
 .nav-item a:hover::before {
     width: 80%;
-    color: var(--spanish-violet);
+    color: var(--bs-primary);
 }
 
 
