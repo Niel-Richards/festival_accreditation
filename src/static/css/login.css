@@ -12,7 +12,6 @@ body::before {
     background-image: url('/static/img/festival_image.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    /* opacity: 0.65; */
     position: absolute;
     top: 0;
     right: 0;
@@ -21,9 +20,12 @@ body::before {
 }
 
 .login {
-    position: relative;
+    position: absolute;
     background-color: #fff;
-    top: -15vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
 input[type=submit] {
