@@ -50,21 +50,6 @@ header {
     margin: auto;
 }
 
-.login {
-    width: 450px;
-    margin: auto;
-    padding: 25px;
-}
-
-.login__header {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.login input[type="submit"] {
-    margin-top: 25px;
-}
-
 /* Body Layout */
 .detail-area {
     display: flex;
@@ -118,7 +103,3 @@ ul {
     list-style: none;
 
 }
-
-/* label {
-    font-size: 1.5rem;
-} */
