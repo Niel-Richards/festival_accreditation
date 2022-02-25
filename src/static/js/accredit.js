@@ -1,38 +1,33 @@
-const firstID = document.getElementById('id_firstIdChecked');
-const secondID = document.getElementById('id_secondIdChecked');
-const camping = document.getElementById('id_camping');
-const tentTag = document.getElementById('id_tent_tag');
-const tentTagColour = document.getElementById('id_tent_tag_colour');
-const form = document.querySelector('form');
-const form_wrapper = document.getElementById('accredit__form-wrapper');
-const submitBtn = document.getElementById('form-submit');
-const nextBtn = document.getElementById('booth__modal-btn');
-const array = [tentTag, tentTagColour];
+const FIRST_ID = document.getElementById('id_firstIdChecked');
+const SECOND_ID = document.getElementById('id_secondIdChecked');
+const CAMPING = document.getElementById('id_camping');
+const TENT_TAG = document.getElementById('id_tent_tag');
+const TENT_TAG_COLOR = document.getElementById('id_tent_tag_colour');
+const SUBMIT_BUTTON = document.getElementById('form-submit');
+const NEXT_BTN = document.getElementById('booth__modal-btn');
+const TENT_ARRAY = [TENT_TAG, TENT_TAG_COLOR];
 
 function init() {
-    array.forEach((item)=>{
+    TENT_ARRAY.forEach((item)=>{
         removeLabelTrailiningSpace(item.parentNode.previousElementSibling);
     });
-    addListeners();
+    SECOND_ID.addEventListener('change', idCheck);
+    CAMPING.addEventListener('change', toggleCampingRequired);
     photo();
     toggleCampingRequired();
 }
 
-function addListeners() {
-    secondID.addEventListener('change', idCheck);
-    camping.addEventListener('change', toggleCampingRequired);
-}
-
 function toggleCampingRequired() {
-    if (camping.value === 'False'){
-        array.forEach((element) => {
+
+    if (CAMPING.value === 'False'){
+        TENT_ARRAY.forEach((element) => {
             element.removeAttribute('required');
             element.setAttribute('disabled','');
             toggleRequiredStar(element);
         });
 
     } else {
-        array.forEach((element) => {
+        TENT_ARRAY.forEach((element) => {
             element.setAttribute('required','');
             element.removeAttribute('disabled');
             toggleRequiredStar(element);
@@ -40,23 +35,13 @@ function toggleCampingRequired() {
     }
 }
 
-function toggleRequiredStar(elm) {
-    let newSpan = createSpan();
-    if (elm.hasAttribute('required')  && !elm.parentNode.previousElementSibling.childElementCount) {
-        elm.parentNode.previousElementSibling.appendChild(newSpan);
-    } else {
-        console.log(elm.parentNode.previousElementSibling.childElementCount);
-        elm.parentNode.previousElementSibling.children[0].remove();
+// function toggleAttribute(element, attribute) {
+//     !element.hasAttribute(attribute) ? element.setAttribute(attribute, "") : element.removeAttribute(attribute);
+// }
 
-        // if (elm.parentNode.previousElementSibling.hasChildNodes()) {
-        //     const array = Array.from(elm.parentNode.previousElementSibling.children);
-        //     console.log(array);
-        //     array.forEach((child)=>{
-        //         elm.parentNode.previousElementSibling.children.remove(child);
-        //     });
-        // }
-    }
-    
+function toggleRequiredStar(element) {
+    const FORM_LABEL = element.parentElement.previousElementSibling;
+    !FORM_LABEL.classList.contains('requiredStar') ? FORM_LABEL.classList.add('requiredStar') : FORM_LABEL.classList.remove("requiredStar");
 }
 
 function removeLabelTrailiningSpace(elm) {
@@ -64,31 +49,24 @@ function removeLabelTrailiningSpace(elm) {
 }
 
 function idCheck() {
-    if ((firstID.value == secondID.value) || (firstID.value == "") || (secondID.value == "")) {
+    if ((FIRST_ID.value == SECOND_ID.value) || (FIRST_ID.value == "") || (SECOND_ID.value == "")) {
         let paragraph = document.createElement('p');
         paragraph.classList.add('invalid-feedback');
         paragraph.id = "feedback";
         paragraph.append('Two forms of ID needs to be checked.');
-        firstID.classList.add('is-invalid');
-        secondID.classList.add('is-invalid');
-        if(secondID.parentNode.childElementCount == 1){
-            secondID.parentNode.appendChild(paragraph);
+        FIRST_ID.classList.add('is-invalid');
+        SECOND_ID.classList.add('is-invalid');
+        if(SECOND_ID.parentNode.childElementCount == 1){
+            SECOND_ID.parentNode.appendChild(paragraph);
         } 
     } else {
-        if (secondID.parentNode.childElementCount > 1){
+        if (SECOND_ID.parentNode.childElementCount > 1){
             let paragraph = document.getElementById('feedback');
-            firstID.classList.remove('is-invalid');
-            secondID.classList.remove('is-invalid');
-            secondID.parentNode.removeChild(paragraph);
+            FIRST_ID.classList.remove('is-invalid');
+            SECOND_ID.classList.remove('is-invalid');
+            SECOND_ID.parentNode.removeChild(paragraph);
         }
     }
-}
-
-function createSpan() {
-    const mySpan = document.createElement('span');
-    mySpan.classList.add('asteriskField');
-    mySpan.innerText ='*';
-    return mySpan;
 }
 
 function photo(){
@@ -98,7 +76,7 @@ function photo(){
         photo = document.getElementById('photo'),
         mugshot = document.getElementById('id_mugshot');
 
-    const constraints = {
+    const CONSTRAINTS = {
         audio: false,
         video: {
             frameRate:{
@@ -119,19 +97,19 @@ function photo(){
                             navigator.mozGetUserMedia ||
                             navigator.msGetUserMedia;
     
-    navigator.mediaDevices.getUserMedia(constraints)
+    navigator.mediaDevices.getUserMedia(CONSTRAINTS)
     .then(function(stream) {
         video.srcObject = stream;
         video.onloadedmetadata = (e) => {
             video.play();
-            if (submitBtn.hasAttribute('disabled')){
+            if (SUBMIT_BUTTON.hasAttribute('disabled')){
                 toggleSubmit();
             }
         }
     })
     .catch(function(err) {
-        const errModal = document.getElementById('staticBackdrop');
-        let modal = bootstrap.Modal.getOrCreateInstance(errModal);
+        const ERR_MODAL = document.getElementById('staticBackdrop');
+        let modal = bootstrap.Modal.getOrCreateInstance(ERR_MODAL);
         modal.show();
         toggleSubmit();
         console.log(err.name + ": " + err.message);
@@ -148,35 +126,31 @@ function photo(){
 }
 
 function toggleSubmitVisibility(){
-     if (!submitBtn.hasAttribute('hidden')){
-        submitBtn.setAttribute('hidden', true);
+     if (!SUBMIT_BUTTON.hasAttribute('hidden')){
+        SUBMIT_BUTTON.setAttribute('hidden', true);
      } else {
-         submitBtn.removeAttribute('hidden');
+         SUBMIT_BUTTON.removeAttribute('hidden');
      }
 }
 
 function toggleSubmit(){
-    if (!submitBtn.hasAttribute('disabled')){
-       submitBtn.setAttribute('disabled',true);
-    } else {
-        submitBtn.removeAttribute('disabled');
-    }
+    !SUBMIT_BUTTON.hasAttribute('disabled') ? SUBMIT_BUTTON.setAttribute('disabled',true) : SUBMIT_BUTTON.removeAttribute('disabled');
 }
 
 function allowCompletion(){
 
-    if (!nextBtn.hasAttribute('hidden')){
-        nextBtn.setAttribute('hidden', true);
-        nextBtn.setAttribute('disabled', true);
+    if (!NEXT_BTN.hasAttribute('hidden')){
+        NEXT_BTN.setAttribute('hidden', true);
+        NEXT_BTN.setAttribute('disabled', true);
         toggleSubmitVisibility();
     } else {
-        nextBtn.removeAttribute('hidden');
-        nextBtn.removeAttribute('disabled');
+        NEXT_BTN.removeAttribute('hidden');
+        NEXT_BTN.removeAttribute('disabled');
         toggleSubmitVisibility();
     }
     
-    const photoModal = document.getElementById('booth__modal');
-    let modal = bootstrap.Modal.getOrCreateInstance(photoModal);
+    const PHOTO_MODAL = document.getElementById('booth__modal');
+    let modal = bootstrap.Modal.getOrCreateInstance(PHOTO_MODAL);
     modal.toggle();
 }
 

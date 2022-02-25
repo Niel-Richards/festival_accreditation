@@ -1,67 +1,67 @@
 //variables
-const payroll_id = document.getElementById('id_payroll_id');
-const sia_no = document.getElementById('id_sia_no');
-const invalid_format_message = 'Invalid format. Should be three letters followed by 4 numbers'
-const invalid_id_message = 'ID number already in use. Please choose another.'
+const PAYROLL_ID = document.getElementById('id_payroll_id');
+const SIA_NO = document.getElementById('id_sia_no');
+const INVALID_FORMAT_MESSAGE = 'Invalid format. Should be three letters followed by 4 numbers'
+const INVALID_ID_MESSAGE = 'ID number already in use. Please choose another.'
 
-payroll_id.addEventListener('change', (e)=>{
+PAYROLL_ID.addEventListener('change', (e)=>{
     e.target.value = e.target.value.toUpperCase();
-    const user_input = e.target.value;
+    const USER_INPUT = e.target.value;
     
-    if (validateIDFormat(user_input)) {
-        checkIDExists(user_input).then(data => {
+    if (validateIDFormat(USER_INPUT)) {
+        checkIDExists(USER_INPUT).then(data => {
             if(data.exists) {
-                toggleErrorState(e.target, data.exists, invalid_id_message);
+                toggleErrorState(e.target, data.exists, INVALID_ID_MESSAGE);
                 return;
             }
             toggleErrorState(e.target, data.exists, );            
         });
     } else {
-        toggleErrorState(e.target, !validateIDFormat(user_input), invalid_format_message);
+        toggleErrorState(e.target, !validateIDFormat(USER_INPUT), INVALID_FORMAT_MESSAGE);
     }
 
 });
 
-function toggleErrorState(field, bool, message="") {
+function toggleErrorState(field, errorCheck, message="") {
 
-    if(bool) {
+    if(errorCheck) {
         if(field.parentNode.childElementCount ==1){
             field.parentNode.appendChild(createErrorParagraph(message));
         }
         field.classList.add('is-invalid');
     } else {
-        const error_paragraph = document.getElementById('feedback');
-        if (field.parentNode.contains(error_paragraph)) {
-            field.parentNode.removeChild(error_paragraph);
+        const ERROR_PARAGRAPH = document.getElementById('feedback');
+        if (field.parentNode.contains(ERROR_PARAGRAPH)) {
+            field.parentNode.removeChild(ERROR_PARAGRAPH);
         }
         field.classList.remove('is-invalid');
     }
 } 
 
 function validateIDFormat(_id) {
-    const regex = new RegExp('[A-Za-z]{3}[0-9]{4}');
-    return regex.test(_id);
+    const VALIDDATE_REGEX = new RegExp('^[A-Za-z]{3}[0-9]{4}$');
+    return VALIDDATE_REGEX.test(_id);
 }
 
 async function checkIDExists(_id) {
-    const response = await fetch('/api/worker/payroll/' + _id);
-    const data = await response.json();
-    return data;
+    const RESPONSE = await fetch('/api/worker/payroll/' + _id);
+    const DATA = await RESPONSE.json();
+    return DATA;
 }
 
 function createErrorParagraph(feedback)  {
-    const paragraph = document.createElement('p');
-    paragraph.classList.add('invalid-feedback');
-    paragraph.id = "feedback";
-    paragraph.append(feedback);
-    return paragraph;
+    const PARAGRAPH = document.createElement('p');
+    PARAGRAPH.classList.add('invalid-feedback');
+    PARAGRAPH.id = "feedback";
+    PARAGRAPH.append(feedback);
+    return PARAGRAPH;
 }
 
-sia_no.addEventListener('keyup',(event)=>{
-    const keyCodesArray = ["ArrowDown","ArrowUp","ArrowLeft","ArrowRight"]; //keyboard arrow keys
+SIA_NO.addEventListener('keyup',(event)=>{
+    const KEY_CODES_ARRAY = ["ArrowDown","ArrowUp","ArrowLeft","ArrowRight"]; //keyboard arrow keys
     let selection = window.getSelection().toString();
     if(selection !== '') return;
-    if(keyCodesArray.includes(event.key)) return;
+    if(KEY_CODES_ARRAY.includes(event.key)) return;
     
     let input_value = event.target.value.replace(/[\D\s\._\-]+/g,""); //removes anything that is not a number
     

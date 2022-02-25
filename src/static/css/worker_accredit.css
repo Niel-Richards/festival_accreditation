@@ -5,3 +5,7 @@
 .hideElement {
     display:none;
 }
+
+.requiredStar::after {
+    content: "*";
+}

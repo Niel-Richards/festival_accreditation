@@ -1,12 +1,12 @@
 // variables
-const search_results = document.querySelector('#search-results');
-search_results.addEventListener('click', (e)=>{
+const SEARCH_RESULTS = document.querySelector('#search-results');
+SEARCH_RESULTS.addEventListener('click', (e)=>{
     let worker_url = e.target.parentNode.attributes[0].nodeValue;
     window.location = worker_url;
 });
 
-const form = document.querySelector('#search-form');
-form.addEventListener('submit', searchHandler, false);
+const FORM = document.querySelector('#search-form');
+FORM.addEventListener('submit', searchHandler, false);
 
 function searchHandler(event) {
     event.preventDefault();
@@ -37,6 +37,6 @@ function getResults(name) {
                             </tr>
                         `;
             }
-            search_results.innerHTML = output;
+            SEARCH_RESULTS.innerHTML = output;
         });
 }
