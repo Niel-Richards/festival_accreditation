@@ -3,10 +3,10 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
-def Worker_List(request,name):
+def Worker_List(request,event_id, name):
     result = {}
     if name is not None:
-        query = Worker.objects.filter(last_name__icontains=name)
+        query = Worker.objects.filter(last_name__icontains=name, working_at=event_id)
         for count, worker in enumerate(query):
             result[count] = {
                 'id': worker.id,

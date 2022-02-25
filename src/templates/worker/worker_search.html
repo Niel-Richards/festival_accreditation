@@ -7,9 +7,9 @@
 {% block top %}
 <div class="d-flex flex-row bd-highlight mb-3 justify-content-between">
     <div>
-        <h4> {{object.name}} - Worker Search </h4>
+        <h4 id="subTitle">{{object.name}} - Worker Search </h4>
     </div>
-    <div class="">
+    <div>
         <a href="{% url 'event:worker_create' object.slug %}" class="btn btn-outline-primary ml-3">
             Add Staff
         </a>
@@ -19,7 +19,7 @@
 {% block content %}
 <div class="search-wrapper d-flex justify-content-between">
     <form class="d-flex w-75" action="." method="get" id="search-form">
-        <input class="form-control me-2" type="search" placeholder="Enter the worker surname..." aria-label="Search" name="search-value" autofocus>
+        <input class="form-control me-2" type="search" placeholder="Enter the worker surname..." aria-label="Search" name="search-value" data-event-id="{{object.id}}" autofocus>
         <button class="btn btn-primary" type="submit" id="worker-search-btn">
             Search
         </button>

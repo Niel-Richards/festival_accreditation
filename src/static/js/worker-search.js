@@ -10,11 +10,11 @@ FORM.addEventListener('submit', searchHandler, false);
 
 function searchHandler(event) {
     event.preventDefault();
-    getResults(event.target[0].value);
+    getResults(event.target[0].attributes[5].nodeValue, event.target[0].value);
 }
 
-function getResults(name) {
-    fetch('/api/worker/' + name)
+function getResults(event_id, name) {
+    fetch(`/api/worker/${event_id}/${name}`)
         .then((response) => response.json())
         .then((data) => {
             let output = "";

@@ -24,7 +24,6 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         return reverse('event:dashboard', kwargs={'slug': self.slug})
-        # return reverse('event:event_list')
 
 def createSlug(instance, new_slug=None):
     slug = slugify(instance.name)
