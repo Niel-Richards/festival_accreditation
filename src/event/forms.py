@@ -160,6 +160,11 @@ class BibForm(forms.ModelForm):
             'bib_colour':  ('Bib Colour'),
         }
 
+    def __init__(self, *args, **kwargs):
+        super(BibForm, self).__init__(*args, **kwargs)
+        self.fields['bib_no'].widget.attrs['class'] = 'form-control'
+        self.fields['bib_colour'].widget.attrs['class'] = 'form-control'
+
 class AccreditForm(forms.ModelForm):
     TRUE_FALSE_CHOICES = (
     (True, 'Yes'),
